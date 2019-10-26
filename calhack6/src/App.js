@@ -8,9 +8,6 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          ENUM
-        </p>
         <div>
         <Graph/>      
         </div>
