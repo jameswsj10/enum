@@ -4,8 +4,16 @@ import { scaleLinear } from "d3-scale";
 import { max } from "d3-array";
 import { select } from "d3-selection";
 class NetworkGraph extends Component {
+    
+    
    constructor(props){
       super(props)
+      var width = 960;
+    var height = 500;
+    var force = d3.layout.force()
+      .charge(-300)
+      .linkDistance(50)
+      .size([width, height]);
       this.createBarChart = this.createBarChart.bind(this)
    }
    componentDidMount() {

@@ -1,7 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import NetworkGraph from './NetworkGraph';
+// import NetworkGraph from './NetworkGraph';
+import Graph from './Graph';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
           ENUM
         </p>
         <div>
-        <NetworkGraph data={[5,10,1,3]} size={[500,500]} />
+        <Graph/>      
         </div>
       </header>
     </div>
