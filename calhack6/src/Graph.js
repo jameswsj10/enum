@@ -3,7 +3,7 @@ import React, {Component} from "react";
 import {
     GraphView, // required
   } from 'react-digraph';
-  
+
   const GraphConfig =  {
     NodeTypes: {
       empty: { // required to show empty nodes
@@ -37,7 +37,7 @@ import {
       }
     }
   }
-  
+
   const NODE_KEY = "id"       // Allows D3 to correctly update DOM
   const sample = {"nodes": [
     {
@@ -54,20 +54,20 @@ import {
       "y": 260.6060791015625,
       "type": "empty"
     },
-    {
-      "id": 3,
-      "title": "Node C",
-      "x": 237.5757598876953,
-      "y": 61.81818389892578,
-      "type": "custom"
-    },
-    {
-      "id": 4,
-      "title": "Node C",
-      "x": 600.5757598876953,
-      "y": 600.81818389892578,
-      "type": "custom"
-    }
+    // {
+    //   "id": 3,
+    //   "title": "Node C",
+    //   "x": 237.5757598876953,
+    //   "y": 61.81818389892578,
+    //   "type": "custom"
+    // },
+    // {
+    //   "id": 4,
+    //   "title": "Node C",
+    //   "x": 600.5757598876953,
+    //   "y": 600.81818389892578,
+    //   "type": "custom"
+    // }
   ],
   "edges": [
     {
@@ -75,38 +75,52 @@ import {
       "target": 2,
       "type": "emptyEdge"
     },
-    {
-      "source": 2,
-      "target": 4,
-      "type": "emptyEdge"
-    }
+    // {
+    //   "source": 2,
+    //   "target": 4,
+    //   "type": "emptyEdge"
+    // }
   ]
 }
   class Graph extends Component {
-  
+
+    fetchGraphInformation = () => {
+      this.setState((prevState) => {
+        return {graph: {...prevState.graph,
+          edges: [{
+            source: 2, target: 1, type: 'emptyEdge'
+          }]
+        }
+      }});
+    }
+
     constructor(props) {
       super(props);
-  
+
       this.state = {
         graph: sample,
         selected: {}
       }
     }
-  
+
+    componentDidMount() {
+      setTimeout(this.fetchGraphInformation, 2000);
+    }
+
     /* Define custom graph editing methods here */
-   
+
     render() {
       const nodes = this.state.graph.nodes;
       const edges = this.state.graph.edges;
       const selected = this.state.selected;
-  
+
       const NodeTypes = GraphConfig.NodeTypes;
       const NodeSubtypes = GraphConfig.NodeSubtypes;
       const EdgeTypes = GraphConfig.EdgeTypes;
-  
+
       return (
         <div id='graph' style={{width: "100%", height: "100%"}}>
-  
+
           <GraphView  ref='GraphView'
                       nodeKey={NODE_KEY}
                       nodes={nodes}
@@ -126,7 +140,7 @@ import {
         </div>
       );
     }
-  
+
   }
 
   export default Graph;
