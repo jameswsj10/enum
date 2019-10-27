@@ -44,18 +44,8 @@ def get_keywords(text):
     for word in blob.noun_phrases:
         if not isname1(word) and not word.count(' ') > 1 and len(word) <= 20 and not contains_duplicates(word):
             keywords.append(word)
-    print(list(set(keywords)))
+    #print(list(set(keywords)))
     return list(set(keywords))
-
-# filter text to remove all words in trivial topic word banks
-# filter text to remove all duplicates
-# strs = str.split()
-# str = (" ".join(sorted(set(strs), key=strs.index)))
-
-
-
-#def filter
-
 
 # def text_to_json_request(text):
 #     data = {"document": {
