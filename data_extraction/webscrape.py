@@ -11,8 +11,8 @@ from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from io import StringIO
 
-import re
-from get_header import get_header
+import codecs
+from data_extraction.get_header import get_header
 # python file for scraping websites
 # Input: URLs
 # Output: JSON files in format of d3 API
@@ -50,7 +50,7 @@ def webscrape(url):
     # clean the pdf link names
     url_list = []
     for el in links:
-        if(el['href'].startswith('http')):
+        if el['href'].startswith('http'):
             url_list.append(el['href'])
         else:
             url_list.append(url + el['href'])
@@ -103,17 +103,21 @@ def webscrape(url):
     txtfiles = []
     i = 0
     for txt in pdf_txts:
-        f = open("{}.txt".format(headers[i]), "w+")
+        f = codecs.open("{}.txt".format(i), "w+", "utf-8")
         f.write(txt)
         f.close()
-        txtfiles.append("{}.txt".format(headers[i]))
+        txtfiles.append("{}.txt".format(i))
+        try:
+            os.remove('{}.pdf'.format(i))
+        except Exception:
+            print('The file does not exist')
         i = i + 1
 
-    for header in headers:
-        print(header)
+    #for header in headers:
+     #   print(header)
 
-    for txtfile in txtfiles:
-        print(txtfile)
+    #for txtfile in txtfiles:
+    #    print(txtfile)
 
     return txtfiles, headers
 
@@ -147,7 +151,7 @@ def pdf2txt(url):
 
     i = 1
     for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages, password=password,caching=caching, check_extractable=True):
-        print(i)
+        #print(i)
         interpreter.process_page(page)
         i = i + 1
 
@@ -207,4 +211,3 @@ def pdf2txt(url):
 #             pdfminer.high_level.extract_text_to_fp(fp, **locals())
 #     return outfp
 
-webscrape("http://www.eecs70.org/")

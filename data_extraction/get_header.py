@@ -1,6 +1,6 @@
 from google.cloud import language
 import os
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"/Users/jungwonsuk/Calhacks6/data_extraction/private-key.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getcwd() + r"\private-key.json"
 import argparse
 import pandas as pd
 
