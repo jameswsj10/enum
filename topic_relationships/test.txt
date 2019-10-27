@@ -1,0 +1,433 @@
+CS 61CGreat Ideas in Computer Architecture (a.k.a. Machine Structures)Lecture 1: Course Introduction
+Instructors:
+Teaching Professor Dan Garcia (call me “Dan”)Professor Miki Lustig (call me “Miki”)(lots of help from TAs)
+cs61c.org
+1
+
+Lecture Attendance
+In the past (Sp19 CS61A) we had a 1300 students and a 800-person classroom.
+Only 200 showed up in steady-state, the rest watched lecture on YouTube.
+Given that we have 1070 students, and a WF 400-person room, we should be ok.
+Monday we’re in a 100-person room, 1st come 1st seated
+The lectures will be posted same day (we’re told)
+2
+
+Patterson and Hennessy win Turing!
+3
+
+Agenda
+
+Thinking about Machine Structures
+Great Ideas in Computer Architecture
+What you need to know about this class
+
+4
+
+Agenda
+
+Thinking about Machine Structures
+Great Ideas in Computer Architecture
+What you need to know about this class
+
+5
+
+CS61C is NOT about C Programming
+It is about the hardware-software interface
+What does the programmer need to know to achieve the highest possible performance
+Languages like C are closer to the underlying hardware, unlike languages like Snap!, Python, Java 
+We can talk about hardware features in higher-level terms
+Allows programmer to explicitly harness underlying hardware parallelism for high performance
+6
+
+Old School CS61C
+7
+Note: This photo is fake
+7
+
+8
+Personal Mobile Devices
+    New School CS61C (1/3)
+Personal Mobile Devices
+NetworkEdge
+Devices
+
+9
+    New School CS61C (2/3)
+
+10
+    New School CS61C (3/3)
+
+Old School Machine Structures
+11
+CS61C
+I/O system
+Processor
+Compiler
+Operating
+System
+(Mac OSX)
+Application (ex: browser)
+Digital Design
+Circuit Design
+Instruction Set
+ Architecture
+Datapath & Control 
+transistors
+Memory
+Hardware
+Software
+Assembler
+
+New-School Machine Structures(It’s a bit more complicated!)
+Parallel Requests
+Assigned to computer
+e.g., Search “Cats”
+Parallel Threads
+Assigned to core
+e.g., Lookup, Ads
+Parallel Instructions
+>1 instruction @ one time
+e.g., 5 pipelined instructions
+Parallel Data
+>1 data item @ one time
+e.g., Add of 4 pairs of words
+Hardware descriptions
+All gates working in parallel at same time
+12
+SmartPhone
+Warehouse Scale Computer
+Software        Hardware
+HarnessParallelism &
+Achieve HighPerformance
+    
+Logic Gates
+Core
+Core
+…
+     Memory               (Cache)
+Input/Output
+Computer
+Main Memory
+Core
+         Instruction Unit(s)
+
+
+       Functional
+Unit(s)
+A3+B3
+A2+B2
+A1+B1
+A0+B0
+Project 1
+HW
+Project 2
+Project 3
+
+Agenda
+
+Thinking about Machine Structures
+Great Ideas in Computer Architecture
+What you need to know about this class
+13
+
+6 Great Ideas in Computer Architecture
+Abstraction (Layers of Representation/Interpretation)
+Moore’s Law
+Principle of Locality/Memory Hierarchy
+Parallelism
+Performance Measurement & Improvement
+Dependability via Redundancy
+14
+
+Great Idea #1: Abstraction(Levels of Representation/Interpretation)
+lw	  $t0, 0($2)
+lw	  $t1, 4($2)
+sw	  $t1, 0($2)
+sw	  $t0, 4($2)
+High Level LanguageProgram (e.g., C)
+Assembly  Language Program (e.g., RISC-V)
+Machine  Language Program (RISC-V)
+Hardware Architecture Description(e.g., block diagrams) 
+Compiler
+Assembler
+Machine Interpretation
+temp = v[k];
+v[k] = v[k+1];
+v[k+1] = temp;
+1000 1101 1110 0010 0000 0000 0000 0000
+1000 1110 0001 0000 0000 0000 0000 0100 
+1010 1110 0001 0010 0000 0000 0000 0000 
+1010 1101 1110 0010 0000 0000 0000 0100 
+Logic Circuit Description(Circuit Schematic Diagrams)
+Architecture Implementation
+Anything can be representedas a number, i.e., data or instructions
+15
+
+16
+Predicts: 
+2X Transistors / chip every 2 years
+Gordon MooreIntel CofounderB.S. Cal 1950!
+#2: Moore’sLaw
+
+A’s Law
+17
+Teachers College Record Volume 114 Number 7, 2012, p. 1-23	
+2070
+100%
+Great news:
+Your grandchildren WILL get As!
+
+Jim Gray’s Storage Latency Analogy:  How Far Away is the Data?
+Registers
+On Chip Cache
+On Board  Cache
+Memory 
+Disk
+1
+2
+10
+100
+Tape /Optical 
+ Robot
+10
+9
+10
+6
+Sacramento
+This Campus
+This Room
+My Head
+10 min
+1.5 hr
+2 Years
+1 min
+Pluto
+2,000 Years
+Andromeda
+(ns)
+Jim GrayTuring Award
+B.S. Cal 1966
+Ph.D. Cal 1969
+18
+18
+
+19
+Great Idea #3: Principle of Locality/Memory Hierarchy
+
+Great Idea #4: Parallelism
+20
+
+21
+Caveat!Amdahl’sLaw
+Gene Amdahl
+Computer Pioneer
+
+Great Idea #5: Performance Measurement and Improvement
+Matching application to underlying hardware to exploit:
+Locality
+Parallelism
+Special hardware features, like specialized instructions (e.g., matrix manipulation)
+Latency
+How long to set the problem up
+How much faster does it execute once it gets going
+It is all about time to finish
+22
+
+Great Idea #6: Dependability via Redundancy
+Redundancy so that a failing piece doesn’t make the whole system fail
+
+23
+1+1=2
+1+1=2
+1+1=1
+1+1=2
+2 of 3 agree
+FAIL!
+Increasing transistor density reduces the cost of redundancy
+
+Applies to everything from datacenters to storage to memory to instructors
+Redundant datacenters so that can lose 1 datacenter but Internet service stays online
+Redundant disks so that can lose 1 disk but not lose data (Redundant Arrays of Independent Disks/RAID)
+Redundant memory bits of so that can lose 1 bit but no data (Error Correcting Code/ECC Memory)
+
+
+Great Idea #6: Dependability via Redundancy
+24
+
+Why is Architecture Exciting Today?
+25
+Number of deployed devices continues growing, but no single killer app
+Diversification of needs, architectures 
+Goal: fast programs, low cost (power dissipation)
+
+Moore’s law
+Past: clock speed increased every year 🡪 programs automatically got faster
+Today: Clock speed stays constant 🡪 only creativity can make programs faster
+E.g. parallel processing
+61C: learn how to increase speed by over 100x for some algorithms
+Combination of architectural innovations and programming innovations
+
+25
+
+Why is Architecture Exciting Today?
+26
+CPU Clock Speed +15%/year
+CPU Speed Flat
+Goal: fast programs, low cost (power dissipation)
+
+Moore’s law
+Past: clock speed increased every year 🡪 programs automatically got faster
+Today: Clock speed stays constant 🡪 only creativity can make programs faster
+E.g. parallel processing
+61C: learn how to increase speed by over 100x for some algorithms
+Combination of architectural innovations and programming innovations
+
+26
+
+Old Conventional Wisdom
+Moore’s Law + Dennard Scaling = faster, cheaper, lower-power general-purpose computers each year
+In glory days, 1%/week performance improvement!
+
+Dumb to compete by designing parallel or specialized computers
+By time you’ve finished design, next generation of general-purpose will beat you
+27
+
+New Conventional Wisdom
+28
+Google TPU2
+Specialized Engine for NN training
+Deployed in cloud
+45 TFLOPS/chip
+Serious heatsinks!
+
+Agenda
+
+Thinking about Machine Structures
+Great Ideas in Computer Architecture
+What you need to know about this class
+
+29
+
+Yoda says…
+“Always in motion, the future is…”
+Our schedule may change slightly depending on some factors.This includes lectures, assignments & labs…
+30
+
+Hot off the presses
+We’ll hopefully be able to accommodate everyone, based on past experience. (we’ve opened up new sections & hired new staff)
+Come to labs this week
+Switching Sections: if there’s room (confirmed by TA in person), go ahead
+Partners on PROJECTS 2,3 and LABS
+31
+
+Course Information
+Course Website: cs61c.org
+Instructors: 
+Dan Garcia & Miki Lustig
+Teaching Assistants: (see webpage)
+Textbooks: Average 15 pages of reading/week
+Patterson & Hennessy, Computer Organization and Design, RISC-V ed
+Kernighan & Ritchie, The C Programming Language, 2nd Edition
+Barroso & Holzle, The Datacenter as a Computer, 1st Edition
+Piazza: 
+Every announcement, discussion, clarification happens there
+32
+
+Course Grading
+Labs (5%)
+Homework (15%)
+Projects (30%)
+1. Non-Parallel Application (C) - Individual
+2. RISC-V Application - Partners3. Computer Processor Design (Logisim) - Partners
+[Parallelize Project 1, SIMD, MIMD – moved to a Homework]
+Quest (5%): 1 Hour, 4th week Monday evening 9-10pm, before drop deadline, can be clobbered
+Midterm (15%): 10th week Monday evening 8-10pm, can be clobbered!
+Final (30%): 2019-12-20 (Friday 11:30am-2:30pm)
+We’ll arrange for an alternate exam for students who have another exam that conflicts with our time and students who have 3+ exams on the same day.
+EPA: Effort, Participation and Altruism (sprinkle points added on top)
+Performance Competition for honor (and EPA)
+
+33
+
+Tried-and-True Technique: Peer Instruction
+Increase real-time learning in lecture, test understanding of concepts vs. details
+As complete a “segment” ask multiple choice question
+1-2 minutes to decide yourself
+2 minutes in pairs/triples to reach consensus. 
+Teach others!
+2 minute discussion of answers, questions, clarifications
+We’ll use Google Forms to make it easy (cheap) for all
+We’ll start on Friday
+NOT required for EPA points
+34
+
+EECS Grading Policy
+Absolute Grading! (not curved!)
+http://www.eecs.berkeley.edu/Policies/ugrad.grading.shtml
+	“A typical GPA for courses in the lower division is 2.8-3.3. This GPA would result, for example, from 35% A’s, 45% B’s, 13% C’s, 7% D’s,F’s. 
+Job/Intern Interviews: They grill you with technical questions, so it’s what you say, not your GPA
+	(CS61C gives good stuff to say)
+
+35
+
+Our goal as instructors
+To make your experience in CS61C as enjoyable & informative as possible
+Humor, enthusiasm & technology-in-the-news in lecture
+Fun, challenging projects & HW
+Pro-student policies (exam clobbering)
+To maintain Cal & EECS standards of excellence
+Projects & exams will be as rigorous as every year.
+To be HKN “7.0” instructors
+Dan: I know I speak fast when I get excited about material. I’m told every semester. Help me slow when I go toooo fast.
+Miki: I know I speak slow… I’m told every semester I teach with Dan. I’m not slow – Dan just speaks fast.
+Please give feedback so we can improve! Why are we not 7.0 for you? We will listen!!
+
+Extra Credit: EPA!
+Effort
+Attending prof and TA office hours, completing all assignments
+turning in HW0
+Participation
+Attending lecture and voting using the clickers
+Asking great Qs in discussion/lecture & making it interactive
+Altruism
+Helping others in lab or on Piazza
+Writing software, creating art, tutorials that help others learn
+EPA! extra credit can bump students up to the next grade level
+(but EPA! #s are internal)
+37
+
+Late Policy … Slip Days!
+Assignments due at 11:59:59 PM
+You have 3 slip day tokens (NOT hour or min)
+Every day your project or homework is late (even by a minute) we deduct a token
+After you’ve used up all tokens, it’s 33% off per day.
+No credit if more than 3 days late
+Save your tokens for projects, worth more!!
+No need for sob stories, just use a slip day!
+
+38
+
+Policy on Assignments and Independent Work
+ALL PROJECTS (but the first) WILL BE DONE WITH A PARTNER
+With the exception of laboratories and assignments (projects and HW) that explicitly permit you to work in groups, all homework and projects are to be YOUR work and your work ALONE.
+PARTNER TEAMS MAY NOT WORK WITH OTHER PARTNER TEAMS
+You are encouraged to help teach others to debug. Beyond that, we don’t want you sharing approaches or ideas or code or whiteboarding with other students, since sometimes the point of the assignment WAS the “algorithm” and if you share that, they won’t learn what we want them to learn). HKN and tutoring sessions that work you through the pseudocode are not allowed.  The pseudocode is sometimes the entire point!  Feel free to answer questions on Piazza that help them debug (don’t share code, even snippets there). We expect that what you hand in is yours.
+It is NOT acceptable to copy solutions from other students.
+It is NOT acceptable to copy (or start your) solutions from the Web. 
+It is NOT acceptable to leave your code anywhere where an unscrupulous student could find and steal it (e.g., public GITHUBs, walking away while leaving yourself logged on, leaving printouts lying around,etc)
+We have tools and methods, developed over many years, for detecting this. You WILL be caught, and the penalties WILL be severe.  If you have questions whether a behavior is crossing the line, ask!
+At the minimum F in the course, and a letter in your Cal record documenting the incidence of cheating.
+(We’ve caught people in recent semesters!) – 63 students were caught in Fall 2018!
+Both Giver and Receiver are equally culpable and suffer equal penalties
+39
+
+Summary
+CS61C: Learn 6 great ideas in computer architecture to enable high performance programming via parallelism, not just learn C
+Abstraction (Layers of Representation / Interpretation)
+Moore’s Law
+Principle of Locality/Memory Hierarchy
+Parallelism
+Performance Measurement and Improvement
+Dependability via Redundancy
+
+40
