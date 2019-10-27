@@ -4,6 +4,7 @@ import argparse
 import pandas as pd
 from textblob import TextBlob
 import nltk
+#nltk.download('words')
 
 
 
@@ -28,9 +29,23 @@ def get_keywords(text):
     salience['score'] = all_scores
     top_k = salience.sort_values('score', ascending=False)
     top_100 = top_k[top_k['word'].str.len() >= 3].iloc[0:100]
-    strs = "".join([str(x) + " " for x in top_100['word'].str.replace(r'[\d]', " ")][0:50])
+    strs = "".join([str(x) + " " for x in top_100['word'].str.replace(r'[\d]', " ")][0:100])
     blob = TextBlob(strs)
-    print(blob.noun_phrases)
+    words = set(nltk.corpus.words.words('en'))
+
+    def isname1(string):
+        return any([w not in words for w in string.lower().split()])
+
+    def contains_duplicates(string):
+        setted = set(string.split())
+        splitted = string.split()
+        if len(setted) < len(splitted):
+            return True
+        return False
+
+    for word in blob.noun_phrases:
+        if not isname1(word) and len(word) <= 20 and not contains_duplicates(word):
+            print(word)
 
 # filter text to remove all words in trivial topic word banks
 # filter text to remove all duplicates
