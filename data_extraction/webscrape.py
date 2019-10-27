@@ -88,13 +88,13 @@ def webscrape(url):
         i = i + 1
 
     # get_header(pdf_txts[1])
-    # url = filtered_urls[3]
-    # url_str = "3.pdf"
-    # urlretrieve(url, url_str)
-    #
-    # pdf_txts.append(pdf2txt(url_str))
+    url = filtered_urls[3]
+    url_str = "3.pdf"
+    urlretrieve(url, url_str)
 
-    # print(pdf_txts[3])
+    pdf_txts.append(pdf2txt(url_str))
+
+    print(pdf_txts[0])
 
     # get the header for each text and save into array
     headers = [get_header(txt) for txt in pdf_txts]
