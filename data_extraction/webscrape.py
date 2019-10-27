@@ -11,15 +11,8 @@ from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from io import StringIO
 
-# # checpoint
-# import sys
-# import logging
-# import six
-# import pdfminer.settings
-# pdfminer.settings.STRICT = False
-# import pdfminer.high_level
-# import pdfminer.layout
-
+import re
+from get_header import get_header
 # python file for scraping websites
 # Input: URLs
 # Output: JSON files in format of d3 API
@@ -42,6 +35,13 @@ from io import StringIO
 
 
 def webscrape(url):
+    """ Grabs all the pdf files in a website and converts them into text files, storing them in an array that preserves
+    order.
+
+    Inputs: website url
+    Output: array of tuples: (Topic, Text)
+
+    """
     # connect to website and get list of all pdfs
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
@@ -59,7 +59,7 @@ def webscrape(url):
     # filtered_urls = [el for el in url_list if 'discussion' not in el and 'homework' not in el and 'book' not in el]
     filtered_urls = []
     for el in url_list:
-        if 'discussion' not in el and 'homework' not in el and 'book' not in el and el not in filtered_urls:
+        if 'disc' not in el and 'homework' not in el and 'book' not in el and el not in filtered_urls:
             filtered_urls.append(el)
 
     # filtered_urls now contains the urls of pdfs that aren't homeworks, discussions, or books without any duplicates
@@ -71,41 +71,65 @@ def webscrape(url):
     # print(pdf2txt("note4.pdf"))
 
     pdf_txts = []
+    # txtfiles = []
     i = 0
     for url in filtered_urls:
         url_str = "{}.pdf".format(i)
         urlretrieve(url, url_str)
-        pdf_txts.append(pdf2txt(url_str))
+        txt = pdf2txt(url_str)
+        pdf_txts.append(txt)
+        #
+        # # create text files
+        # f = open("{}.txt".format(i), "w+")
+        # f.write(txt)
+        # f.close()
+        # txtfiles.append("{}.txt".format(i))
+
         i = i + 1
 
-    print(pdf_txts[10])
-
-    # for url in filtered_urls[0:3]:
-    #     url_str = "{}.pdf".format(i)
-    #     urlretrieve(url, url_str)
-    #     pdf_txts.append(pdf2txt(url_str))
-    #     i = i + 1
-    # print(pdf_txts[2])
-    # for url in filtered_urls[4:]:
-    #     url_str = "{}.pdf".format(i)
-    #     urlretrieve(url, url_str)
-    #     pdf_txts.append(pdf2txt(url_str))
-    #     i = i + 1
-
-    # url = filtered_urls[5]
-    # url_str = "5.pdf"
+    # get_header(pdf_txts[1])
+    # url = filtered_urls[3]
+    # url_str = "3.pdf"
     # urlretrieve(url, url_str)
     #
     # pdf_txts.append(pdf2txt(url_str))
-    #
-    # print(pdf_txts[0])
 
-    # example_url = filtered_urls[0]
-    # print(example_url)
+    # print(pdf_txts[3])
+
+    # get the header for each text and save into array
+    headers = [get_header(txt) for txt in pdf_txts]
+
+    # populate txtfiles according to their name
+    txtfiles = []
+    i = 0
+    for txt in pdf_txts:
+        f = open("{}.txt".format(headers[i]), "w+")
+        f.write(txt)
+        f.close()
+        txtfiles.append("{}.txt".format(headers[i]))
+        i = i + 1
+
+    for header in headers:
+        print(header)
+
+    for txtfile in txtfiles:
+        print(txtfile)
+
+    return txtfiles, headers
+
     #
-    # urlretrieve(example_url, "a.pdf")
-    # txt = pdf2txt("a.pdf")
-    # print(txt)
+    # # filter the numbers from the texts
+    # text_to_filter = pdf_txts[4]
+    # str = re.sub(r'[\d]', " ", text_to_filter)
+    #
+    # #filter text to remove all words in trivial topic word banks
+    #
+    # # filter text to remove all duplicates
+    # strs = str.split()
+    # str = (" ".join(sorted(set(strs), key=strs.index)))
+    #
+    # print(str)
+
 
 #helper to extract text from link of pdf
 def pdf2txt(url):
@@ -125,7 +149,7 @@ def pdf2txt(url):
     for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages, password=password,caching=caching, check_extractable=True):
         print(i)
         interpreter.process_page(page)
-        i = i +1
+        i = i + 1
 
     text = retstr.getvalue()
 
