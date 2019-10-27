@@ -4,7 +4,8 @@ import Graph from '../Graph';
 
 
 class Landing extends Component {
-  render() {
+
+	render() {
 	return(
 		<div style={{width: '100%', height: '100%', margin: 'auto'}}>
 			<Graph/>
