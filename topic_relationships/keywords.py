@@ -6,10 +6,7 @@ from textblob import TextBlob
 import nltk
 #nltk.download('words')
 
-
-
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"\Users\iyerr\Desktop\Calhacks6\topic_relationships\private-key.json"
-
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getcwd() + r"\private-key.json"
 
 def get_keywords(text):
     client = language.LanguageServiceClient()
