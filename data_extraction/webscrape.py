@@ -12,7 +12,7 @@ from pdfminer.pdfpage import PDFPage
 from io import StringIO
 
 import codecs
-from data_extraction.get_header import get_header
+from get_header import get_header
 # python file for scraping websites
 # Input: URLs
 # Output: JSON files in format of d3 API
@@ -88,13 +88,13 @@ def webscrape(url):
         i = i + 1
 
     # get_header(pdf_txts[1])
-    url = filtered_urls[3]
-    url_str = "3.pdf"
-    urlretrieve(url, url_str)
+    # url = filtered_urls[3]
+    # url_str = "3.pdf"
+    # urlretrieve(url, url_str)
+    #
+    # pdf_txts.append(pdf2txt(url_str))
 
-    pdf_txts.append(pdf2txt(url_str))
-
-    print(pdf_txts[0])
+    # print(pdf_txts[0])
 
     # get the header for each text and save into array
     headers = [get_header(txt) for txt in pdf_txts]
@@ -210,4 +210,3 @@ def pdf2txt(url):
 #         with open(fname, "rb") as fp:
 #             pdfminer.high_level.extract_text_to_fp(fp, **locals())
 #     return outfp
-

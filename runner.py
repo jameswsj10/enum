@@ -13,6 +13,8 @@ def build_mapper():
             mapper[headers[i]] = keywords
     return mapper
 
+global mapper = build_mapper()
+
 
 if __name__ == "__main__":
     print(build_mapper())
