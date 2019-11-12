@@ -6,6 +6,7 @@ from urllib.request import urlretrieve
 import codecs
 from io import StringIO
 
+# [FILE DESCRIPTION]
 # python file for scraping websites
 # Input: URL
 # Output: array of txts of the pdfs we scrape the url
@@ -14,6 +15,7 @@ from io import StringIO
 # 1) PDFs (lecture notes, textbooks)
 # 2) Google Slides "....docs.google.com"
 # 3) HTML / online textbooks ".....html" files
+
 def webscrape(url):
     """ Grabs all the pdf files in a website and converts them into text files, storing them in an array that preserves
     order.
