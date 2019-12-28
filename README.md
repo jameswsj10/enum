@@ -4,5 +4,5 @@ Exams are no joke. They usually cover many topics, each building on top of each 
 Our map shows a cohesive story of course content which other study applications don't - we help students make connections between key ideas by linking them together in a content map. Rather than learning bits and pieces of everything and forgetting them later, we retrace and connect the dots, which in turn provides for meaningful and long-lasting learning. 
 
 
-# Our team is comprised of these dedicated engineers and hackers:
+# Developers: 
 Deepali Jain, Ritvik Iyer, Hiren Patel, and James Jung 
