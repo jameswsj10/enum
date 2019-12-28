@@ -5,6 +5,11 @@ from bs4 import BeautifulSoup
 from urllib.request import urlretrieve
 import codecs
 from io import StringIO
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer.layout import LAParams
+from pdfminer.converter import TextConverter
+from pdfminer.pdfpage import PDFPage
+
 
 # [FILE DESCRIPTION]
 # python file for scraping websites
@@ -41,7 +46,7 @@ def webscrape(url):
     # TO RITVIK: i had it so that we add in the text itself, but we can have it so that it appends the txt file
     pdf_txts = []
     i = 0
-    for url in filtered_urls:
+    for url in url_list:
         url_str = "{}.pdf".format(i) # should think about naming as well. Maybe just store it as numbers for now?
         urlretrieve(url, url_str)
         txt = pdf2txt(url_str)
@@ -49,3 +54,32 @@ def webscrape(url):
         i = i + 1
 
     return pdf_txts
+
+#helper to extract text from link of pdf
+def pdf2txt(url):
+    rsrcmgr = PDFResourceManager()
+    retstr = StringIO()
+    codec = 'utf-8'
+    laparams = LAParams()
+    device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
+    fp = open(url, 'rb')
+    interpreter = PDFPageInterpreter(rsrcmgr, device)
+    password = ""
+    maxpages = 0
+    caching = True
+    pagenos=set()
+
+    i = 1
+    for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages, password=password,caching=caching, check_extractable=True):
+        #print(i)
+        interpreter.process_page(page)
+        i = i + 1
+
+    text = retstr.getvalue()
+
+    fp.close()
+    device.close()
+    retstr.close()
+    return text
+
+webscrape("http://www.eecs70.org/")
