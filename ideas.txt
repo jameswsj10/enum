@@ -3,3 +3,4 @@ Here, we will list some ideas for extra features and possible improvements/fixes
 - (Idea) Search tool that highlights where a specific keyword/concept is from
    ㄴ Will have to store each documents scanned and tie it w a 'bubble' on the map to allow for searches
 
+- Google Knowledge Maps? 
