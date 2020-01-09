@@ -1,0 +1,24 @@
+At first the study of organic chemistry involves understanding the energy
+and shapes of simple organic structures. Then the study progresses to more
+complicated three-dimensional structures and finally to the investigation of reactions
+of organic molecules. We use the theories of bonding and the facts about acidic or
+basic properties of the molecules to understand the overall picture of what is
+happening. But the overall goal is to improve mankind through the development of
+new and better processes to be applied in medicine, agriculture and biomedical
+science, that is to make life better. Thus we must be able to study difficult molecules
+too.
+As you proceed through organic chemistry you will write many different
+structures, and the writing gets easier with practice. But in the beginning it can be
+confusing. Always remember that carbon has four bonds!
+In writing an alkane such as pentane which has five carbon atoms. We
+could write it by just showing carbon atoms, but it does not show carbon with four bonds. 
+More correctly it needs all of its hydrogen atoms, but writing all the
+hydrogen atoms for compounds becomes cumbersome. Thus we write condensed
+structures as shown below. With some experience, we can write pentane as the line
+structure with the ends and the points representing carbon atoms, and we know that
+the hydrogens are there without writing them. Carbon compounds also exist in rings, called cyclic compounds. Below is
+the compound called cyclohexane written several different ways. Even in the most
+condensed structures you must realize that all the carbon atoms and all the hydrogen
+atoms are present even though the C's and H's are not written. These shorthand
+methods of writing structures are very helpful in speeding up the writing of
+equations, and thus understanding them is necessary. 
