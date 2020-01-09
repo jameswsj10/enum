@@ -1,0 +1,30 @@
+Public Key Cryptography
+In this note, we discuss a very nice and important application of modular arithmetic: the RSA public-key
+cryptosystem, named after its inventors Ronald Rivest, Adi Shamir and Leonard Adleman.
+The basic setting for cryptography is typically described via a cast of three characters: Alice and Bob, who
+with to communicate confidentially over some (insecure) link, and Eve, an eavesdropper who is listening in
+and trying to discover what they are saying. Let’s assume that Alice wants to transmit a message x (written
+in binary) to Bob. She will apply her encryption function E to x and send the encrypted message E(x) over
+the link; Bob, upon receipt of E(x), will then apply his decryption function D to it and thus recover the
+original message: i.e., D(E(x)) = x.
+Since the link is insecure, Alice and Bob have to assume that Eve may get hold of E(x). (Think of Eve
+as being a “sniffer" on the network.) Thus ideally we would like to know that the encryption function E is
+chosen so that just knowing E(x) (without knowing the decryption function D) doesn’t allow one to discover
+anything about the original message x.
+For centuries cryptography was based on what are now called private-key protocols. In such a scheme,
+Alice and Bob meet beforehand and together choose a secret codebook, with which they encrypt all future
+correspondence between them. (This codebook plays the role of the functions E and D above.) Eve’s only
+hope then is to collect some encrypted messages and use them to at least partially figure out the codebook.
+Public-key schemes such as RSA, first invented in the 1970s, are significantly more subtle and tricky: they
+allow Alice to send Bob a message without ever having met him before! This almost sounds impossible,
+because in this scenario there is a symmetry between Bob and Eve: why should Bob have any advantage over
+Eve in terms of being able to understand Alice’s message? The central idea behind the RSA cryptosystem
+is that Bob is able to implement a digital lock, to which only he has the key. Now by making this digital
+lock public, he gives Alice (or, indeed, anybody else) a way to send him a secure message which only he
+can open.
+Here is how the digital lock is implemented in the RSA scheme. Each person has a public key known to the
+whole world, and a private key known only to him- or herself. When Alice wants to send a message x to
+Bob, she encodes it using Bob’s public key. Bob then decrypts it using his private key, thus retrieving x. Eve
+is welcome to see as many encrypted messages for Bob as she likes, but she will not be able to decode them
+(under certain basic assumptions explained later in this Note).
+The RSA scheme is based heavily on modular arithmetic.
