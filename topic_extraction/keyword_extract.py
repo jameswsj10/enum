@@ -1,5 +1,15 @@
+# opening and extracting sample text files
+with open('ochem.txt', 'r') as file:
+    ochem = file.read().replace('\n', '')
+
+with open('911.txt', 'r') as file:
+    nine11 = file.read().replace('\n', '')
+
+with open('rsa.txt', 'r') as file:
+    rsa = file.read().replace('\n', '')
+
 #Source - https://towardsdatascience.com/textrank-for-keyword-extraction-by-python-c0bae21bcec0
-# Author: Xu Liang 
+# Author: Xu Liang - TextRank
 from collections import OrderedDict
 import numpy as np
 import spacy
@@ -97,6 +107,10 @@ class TextRank4Keyword():
                 candidate_pos=['NOUN', 'PROPN', 'VERB'],
                 window_size=4, lower=False, stopwords=list()):
         """Main function to analyze text"""
+        # TODO: Filter text a bit more
+        # filtering the text to contain only > 3 letter words OPTIONAL
+        # text = ''.join(word for word in text if len(word) < 3)
+        # print(text)
 
         # Set stop words
         self.set_stopwords(stopwords)
@@ -143,15 +157,24 @@ class TextRank4Keyword():
 #
 # It is for us, the living, rather, to be dedicated here to the unfinished work which they who fought here, have, thus far, so nobly advanced. It is rather for us to be here dedicated to the great task remaining before us that from these honored dead we take increased devotion to that cause for which they here gave the last full measure of devotion that we here highly resolve that these dead shall not have died in vain that this nation, under God, shall have a new birth of freedom and that government of the people, by the people, for the people, shall not perish from the earth.
 # """
+# text = """
+# In data fitting, the task is to find a model, from a family of potential models,that best fits some observed data
+# and prior information. Here the variables are the parameters in the model, and the constraints can represent prior
+# information or required limits on the parameters (such as nonnegativity). The objective function might be a measure
+# of misfit or prediction error between the observed data and the values predicted by the model, or a statistical measure
+# of the unlikeliness orimplausibility of the parameter values. The optimization problem (1.1) is tofindthe model
+# parameter values that are consistent with the prior information, and give the smallest misfit or prediction error
+# with the observed dat
+# """
+
 text = """
-In data fitting, the task is to find a model, from a family of potential models,that best fits some observed data
-and prior information. Here the variables are the parameters in the model, and the constraints can represent prior
-information or required limits on the parameters (such as nonnegativity). The objective function might be a measure
-of misfit or prediction error between the observed data and the values predicted by the model, or a statistical measure
-of the unlikeliness orimplausibility of the parameter values. The optimization problem (1.1) is tofindthe model
-parameter values that are consistent with the prior information, and give the smallest misfit or prediction error
-with the observed dat
+WASHINGTON — President Trump backed away from further military action against Iran and called for renewed diplomacy on Wednesday as the bristling confrontation of the past six days eased in the aftermath of an Iranian missile strike that seemed intended to save face rather than inflict casualties.
+
+“Iran appears to be standing down, which is a good thing for all parties concerned and a very good thing for the world,” Mr. Trump said in a televised statement from the Grand Foyer of the White House, flanked by his vice president, cabinet secretaries and senior military officers in their uniforms. “The United States,” he added, “is ready to embrace peace with all who seek it.”
+
+The president sounded as eager as the Iranians to find a way out of a conflict that threatened to spiral out of control into a new full-fledged war in the Middle East. While Mr. Trump excoriated Iran’s “campaign of terror, murder, mayhem” and defended his decision to order a drone strike killing the country’s top security commander, he dropped for now his bombastic threats of escalating force, vowing instead to increase economic sanctions while calling for new negotiations.
 """
 tr4w = TextRank4Keyword()
-tr4w.analyze(text, candidate_pos = ['NOUN', 'PROPN'], window_size=4, lower=False)
-tr4w.get_keywords(10)
+# analyze either rsa, nine11, or ochem string variables
+tr4w.analyze(text, candidate_pos = ['NOUN', 'PROPN', 'ADJ', 'VERB'], window_size=4, lower=False)
+tr4w.get_keywords(15)
