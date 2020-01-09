@@ -103,9 +103,8 @@ class TextRank4Keyword():
                 break
 
 
-    def analyze(self, text,
-                candidate_pos=['NOUN', 'PROPN', 'VERB'],
-                window_size=4, lower=False, stopwords=list()):
+    def analyze(self, text, candidate_pos, window_size,
+                lower=False, stopwords=list()):
         """Main function to analyze text"""
         # TODO: Filter text a bit more
         # filtering the text to contain only > 3 letter words OPTIONAL
@@ -176,5 +175,5 @@ The president sounded as eager as the Iranians to find a way out of a conflict t
 """
 tr4w = TextRank4Keyword()
 # analyze either rsa, nine11, or ochem string variables
-tr4w.analyze(text, candidate_pos = ['NOUN', 'PROPN', 'ADJ', 'VERB'], window_size=4, lower=False)
+tr4w.analyze(rsa, candidate_pos = ['NOUN', 'PROPN', 'ADJ', 'VERB'], window_size=3, lower=False)
 tr4w.get_keywords(15)
