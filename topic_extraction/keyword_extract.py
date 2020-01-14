@@ -1,12 +1,12 @@
 # opening and extracting sample text files
 with open('ochem.txt', 'r') as file:
     ochem = file.read().replace('\n', '')
-
 with open('911.txt', 'r') as file:
     nine11 = file.read().replace('\n', '')
-
 with open('rsa.txt', 'r') as file:
     rsa = file.read().replace('\n', '')
+with open('big.txt', 'r') as file:
+    big = file.read().replace('\n', '')
 
 #Source - https://towardsdatascience.com/textrank-for-keyword-extraction-by-python-c0bae21bcec0
 # Author: Xu Liang - TextRank
@@ -93,7 +93,6 @@ class TextRank4Keyword():
 
         return g_norm
 
-
     def get_keywords(self, number=10):
         """Print top number keywords"""
         node_weight = OrderedDict(sorted(self.node_weight.items(), key=lambda t: t[1], reverse=True))
@@ -101,7 +100,6 @@ class TextRank4Keyword():
             print(key + ' - ' + str(value))
             if i > number:
                 break
-
 
     def analyze(self, text, candidate_pos, window_size,
                 lower=False, stopwords=list()):
@@ -174,6 +172,6 @@ WASHINGTON — President Trump backed away from further military action against 
 The president sounded as eager as the Iranians to find a way out of a conflict that threatened to spiral out of control into a new full-fledged war in the Middle East. While Mr. Trump excoriated Iran’s “campaign of terror, murder, mayhem” and defended his decision to order a drone strike killing the country’s top security commander, he dropped for now his bombastic threats of escalating force, vowing instead to increase economic sanctions while calling for new negotiations.
 """
 tr4w = TextRank4Keyword()
-# analyze either rsa, nine11, or ochem string variables
+# analyze either rsa, nine11, big, or ochem string variables
 tr4w.analyze(rsa, candidate_pos = ['NOUN', 'PROPN', 'ADJ', 'VERB'], window_size=3, lower=False)
 tr4w.get_keywords(15)
