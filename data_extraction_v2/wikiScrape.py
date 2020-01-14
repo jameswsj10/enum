@@ -3,14 +3,22 @@ import requests
 import regex as re
 from bs4 import BeautifulSoup
 
+# function seems to be giving back 2 inconsistent results for some keywords like 'Particles Chemistry'
 def getWikipediaPage(keyword):
-    words = keyword.split()
-    concat = "+".join(words)
-    url = 'https://en.wikipedia.org/w/index.php?search=' + concat + '&title=Special:Search&go=Go&ns0=1'
+    """Returns wikipedia page of given keyword
+
+    >>> getWikipediaPage('Inheritance Computer Science')
+    en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)
+    >>> getWikipediaPage('Particles Chemistry')
+    en.wikipedia.org/wiki/Particle
+
+    """
+    concat = keyword.replace(' ', '+')
+    url = 'https://en.wikipedia.org/w/index.php?search={}&title=Special:Search&go=Go&ns0=1'.format(concat)
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
     links = soup.html.body.find_all('a', attrs={'href': re.compile("^/wiki/")})
-    return 'en.wikipedia.org' + links[2].get('href')
+    return 'en.wikipedia.org{}'.format(links[2].get('href'))    #.format is the faster than adding strings
 
 
 # def searchWikiPage(url, keyword):
@@ -23,7 +31,14 @@ def getWikipediaPage(keyword):
 #   Return the headers relevant to the keyword
 #   (ignore See Also and after)
 
+def findRelevantHeadings(url, keyword):
+    """In one pass of the wikipedia page, return all headings and subheadings
+    of the page with a match to the keyword in the text
 
+    >>> findRelevantHeadings("en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)", "polymorph")
+
+    """
+    
 
 # We probably don't need this
 # def getTableofContentsTags(url):
@@ -36,5 +51,5 @@ def getWikipediaPage(keyword):
 
 
 if __name__ == '__main__':
-    getWikipediaPage('Inheritance Computer Science')
+    print(getWikipediaPage('Particles Chemistry'))
     # getTableofContentsTags('https://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)')
