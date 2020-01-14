@@ -82,4 +82,4 @@ def pdf2txt(url):
     retstr.close()
     return text
 
-webscrape("http://www.eecs70.org/")
+webscrape("http://www.google.com")

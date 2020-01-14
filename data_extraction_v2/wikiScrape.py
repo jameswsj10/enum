@@ -37,4 +37,4 @@ def getWikipediaPage(keyword):
 
 if __name__ == '__main__':
     getWikipediaPage('Inheritance Computer Science')
-    #getTableofContentsTags('https://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)')
+    # getTableofContentsTags('https://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)')
