@@ -1,13 +1,10 @@
 # opening and extracting sample text files
 with open('ochem.txt', 'r') as file:
     ochem = file.read().replace('\n', '')
-
 with open('911.txt', 'r') as file:
     nine11 = file.read().replace('\n', '')
-
 with open('rsa.txt', 'r') as file:
     rsa = file.read().replace('\n', '')
-
 with open('big.txt', 'r') as file:
     big = file.read().replace('\n', '')
 
@@ -96,7 +93,6 @@ class TextRank4Keyword():
 
         return g_norm
 
-
     def get_keywords(self, number=10):
         """Print top number keywords"""
         node_weight = OrderedDict(sorted(self.node_weight.items(), key=lambda t: t[1], reverse=True))
@@ -104,7 +100,6 @@ class TextRank4Keyword():
             print(key + ' - ' + str(value))
             if i > number:
                 break
-
 
     def analyze(self, text, candidate_pos, window_size,
                 lower=False, stopwords=list()):
