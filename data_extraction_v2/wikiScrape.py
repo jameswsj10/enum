@@ -3,6 +3,14 @@ import requests
 import regex as re
 from bs4 import BeautifulSoup
 
+# importing libraries necessary to stem and lemmatize word
+import nltk
+# nltk.download('punkt')
+from nltk.stem import PorterStemmer
+from nltk.stem import LancasterStemmer
+porter = PorterStemmer()
+lancaster = LancasterStemmer()
+
 # function seems to be giving back 2 inconsistent results for some keywords like 'Particles Chemistry'
 def getWikipediaPage(keyword):
     """Returns wikipedia page of given keyword
@@ -35,10 +43,28 @@ def findRelevantHeadings(url, keyword):
     """In one pass of the wikipedia page, return all headings and subheadings
     of the page with a match to the keyword in the text
 
-    >>> findRelevantHeadings("en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)", "polymorph")
+    >>> findRelevantHeadings("http://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)", "polymorph")
+    ["Applications/Code reuse", "Design Constraints"]
 
     """
-    
+    headings = []
+    keyword_porter = porter.stem(keyword)       # two different ways of stemming and lemmatizing, we should search both
+    keyword_lancaster = lancaster.stem(keyword)
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    # for elem in soup(text=re.compile(r'polymorph',re.I)):
+    #     print(elem.parent)
+
+    all_tags = soup.find_all('h2')[1:-5]
+    for elem in all_tags:
+        print(elem.text)
+    # print(soup.find(lambda elm: elm.name == "h2" ))
+
+
+
+
+
 
 # We probably don't need this
 # def getTableofContentsTags(url):
@@ -48,8 +74,7 @@ def findRelevantHeadings(url, keyword):
 #     for elem in all_tags:
 #         print(elem.contents[0].contents[0])
 
-
-
 if __name__ == '__main__':
-    print(getWikipediaPage('Particles Chemistry'))
+    #getWikipediaPage('Particles Chemistry')
+    findRelevantHeadings("http://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)", "polymorph")
     # getTableofContentsTags('https://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)')
