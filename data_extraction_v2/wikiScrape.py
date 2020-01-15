@@ -11,7 +11,7 @@ from nltk.stem import LancasterStemmer
 porter = PorterStemmer()
 lancaster = LancasterStemmer()
 
-# function seems to be giving back 2 inconsistent results for some keywords like 'Particles Chemistry'
+# function seems to be giving back inconsistent results for some keywords like 'Particles Chemistry' (2 diff results)
 def getWikipediaPage(keyword):
     """Returns wikipedia page of given keyword
 
@@ -43,9 +43,12 @@ def findRelevantHeadings(url, keyword):
     """In one pass of the wikipedia page, return all headings and subheadings
     of the page with a match to the keyword in the text
 
+    >>> findRelevantHeadings(url, keyword)
+    ["[h2]/[h3]", "[h2]"]
     >>> findRelevantHeadings("http://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)", "polymorph")
     ["Applications/Code reuse", "Design Constraints"]
 
+    ^ change output as needed (maybe a linked list)
     """
     headings = []
     keyword_porter = porter.stem(keyword)       # two different ways of stemming and lemmatizing, we should search both
@@ -58,8 +61,8 @@ def findRelevantHeadings(url, keyword):
 
     all_tags = soup.find_all('h2')[1:-5]
     for elem in all_tags:
-        print(elem.text)
-    # print(soup.find(lambda elm: elm.name == "h2" ))
+        print(elem.text[:-6])
+    # print(soup.find(lambda elm: elm.name == "h2" and keyword in elm.body))
 
 
 
