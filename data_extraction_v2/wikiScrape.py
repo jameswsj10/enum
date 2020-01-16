@@ -1,7 +1,7 @@
 import os
 import requests
 import regex as re
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, NavigableString, Tag
 
 # importing libraries necessary to stem and lemmatize word
 import nltk
@@ -59,11 +59,36 @@ def findRelevantHeadings(url, keyword):
     # for elem in soup(text=re.compile(r'polymorph',re.I)):
     #     print(elem.parent)
 
-    all_tags = soup.find_all('h2')[1:-5]
-    for elem in all_tags:
-        print(elem.text[:-6])
+    # all_tags = soup.find_all('h2')[1:-5]
+    # for elem in all_tags:
+    #     print(elem.text[:-6])
     # print(soup.find(lambda elm: elm.name == "h2" and keyword in elm.body))
 
+    h2 = ""
+    h3 = ""
+
+    for header in soup.find_all('h2')[1:-5]:
+        nextNode = header
+        h2 = header
+        h3 = ""
+        while True:
+            nextNode = nextNode.nextSibling
+            if nextNode is None:
+                break
+            if isinstance(nextNode, Tag):
+                if nextNode.name == "h2":
+                    break
+                if nextNode.name == "h3":
+                    h3 = nextNode.get_text(strip=True).strip()[:-6]
+                #search through following information to find if keyword exists in given text
+                if (nextNode.get_text(strip=True).strip().find(keyword) != -1):
+                    #if keyword in information, add to list
+                    if h3 == "":
+                        headings.append(h2.text[:-6])
+                    else:
+                        headings.append(h2.text[:-6] + "/" + h3)
+                    break
+    print(headings)
 
 
 
