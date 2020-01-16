@@ -17,7 +17,7 @@ def stemWord_lancaster(keyword):
 
 #A list of words to be stemmed - compare contrast porter and lancaster
 # source - https://www.datacamp.com/community/tutorials/stemming-lemmatization-python
-word_list = ["friend", "friendship", "friends", "friendships","stabil","destabilize","misunderstanding","railroad","moonlight","football"]
+word_list = ["friend", "friendship", "friends", "friendships","stabil","destabilize","misunderstanding","railroad","moonlight","football", "particle accelerator", "swimming pool", "helium gas", "destabilized energy"]
 print("{0:20}{1:20}{2:20}".format("Word","Porter Stemmer","lancaster Stemmer"))
 for word in word_list:
     print("{0:20}{1:20}{2:20}".format(word,porter.stem(word),lancaster.stem(word)))

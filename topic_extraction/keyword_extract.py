@@ -7,6 +7,8 @@ with open('rsa.txt', 'r') as file:
     rsa = file.read().replace('\n', '')
 with open('big.txt', 'r') as file:
     big = file.read().replace('\n', '')
+with open('note7.txt', 'r') as file:
+    note7 = file.read().replace('\n', '')
 
 #Source - https://towardsdatascience.com/textrank-for-keyword-extraction-by-python-c0bae21bcec0
 # Author: Xu Liang - TextRank
@@ -172,6 +174,6 @@ WASHINGTON — President Trump backed away from further military action against 
 The president sounded as eager as the Iranians to find a way out of a conflict that threatened to spiral out of control into a new full-fledged war in the Middle East. While Mr. Trump excoriated Iran’s “campaign of terror, murder, mayhem” and defended his decision to order a drone strike killing the country’s top security commander, he dropped for now his bombastic threats of escalating force, vowing instead to increase economic sanctions while calling for new negotiations.
 """
 tr4w = TextRank4Keyword()
-# analyze either rsa, nine11, big, or ochem string variables
-tr4w.analyze(rsa, candidate_pos = ['NOUN', 'PROPN', 'ADJ', 'VERB'], window_size=3, lower=False)
+# analyze either rsa, nine11, big, note7, or ochem string variables
+tr4w.analyze(note7, candidate_pos = ['NOUN', 'PROPN', 'ADJ', 'VERB'], window_size=3, lower=False)
 tr4w.get_keywords(15)

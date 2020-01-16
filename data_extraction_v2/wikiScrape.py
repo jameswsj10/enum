@@ -56,14 +56,6 @@ def findRelevantHeadings(url, keyword):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
 
-    # for elem in soup(text=re.compile(r'polymorph',re.I)):
-    #     print(elem.parent)
-
-    # all_tags = soup.find_all('h2')[1:-5]
-    # for elem in all_tags:
-    #     print(elem.text[:-6])
-    # print(soup.find(lambda elm: elm.name == "h2" and keyword in elm.body))
-
     h2 = ""
     h3 = ""
 
