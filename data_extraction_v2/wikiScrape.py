@@ -73,18 +73,15 @@ def findRelevantHeadings(url, keyword):
                 if nextNode.name == "h3":
                     h3 = nextNode.get_text(strip=True).strip()[:-6]
                 #search through following information to find if keyword exists in given text
-                if (nextNode.get_text(strip=True).strip().find(keyword) != -1):
+                if (nextNode.get_text(strip=True).strip().find(keyword) != -1): # LETS SEE IF WE SHOULD USE PORTER OR LANC
                     #if keyword in information, add to list
                     if h3 == "":
                         headings.append(h2.text[:-6])
                     else:
                         headings.append(h2.text[:-6] + "/" + h3)
                     break
-    print(headings)
-
-
-
-
+    # print(headings)
+    return headings
 
 # We probably don't need this
 # def getTableofContentsTags(url):

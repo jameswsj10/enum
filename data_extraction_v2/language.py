@@ -52,4 +52,6 @@ def fuzzymatch(text, keyword):
 #print("{0:20}{1:20}{2:20}".format("Word","Porter Stemmer","lancaster Stemmer"))
 #for word in word_list:
 #    print("{0:20}{1:20}{2:20}".format(word,porter.stem(word),lancaster.stem(word)))
+
+# for checking if our fuzzymatch works
 print(fuzzymatch("""Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.""", "printing and typesetting"))
