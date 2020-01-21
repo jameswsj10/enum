@@ -39,17 +39,18 @@ def getWikipediaPage(keyword):
 #   Return the headers relevant to the keyword
 #   (ignore See Also and after)
 
-def findRelevantHeadings(url, keyword):
-    """In one pass of the wikipedia page, return all headings and subheadings
-    of the page with a match to the keyword in the text
+def findRelevantHeadings(keyword, keyword):
+    """In one pass of the wikipedia page of the first keyword, return all headings and subheadings
+    of the page with a match to the second keyword in the text
 
-    >>> findRelevantHeadings(url, keyword)
+    >>> findRelevantHeadings(keyword, keyword)
     ["[h2]/[h3]", "[h2]"]
-    >>> findRelevantHeadings("http://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)", "polymorph")
+    >>> findRelevantHeadings("inheritance computer science", "polymorph")
     ["Applications/Code reuse", "Design Constraints"]
 
     ^ change output as needed (maybe a linked list)
     """
+    url = getWikipediaPage(keyword)
     headings = []
     keyword_porter = porter.stem(keyword)       # two different ways of stemming and lemmatizing, we should search both
     keyword_lancaster = lancaster.stem(keyword)
