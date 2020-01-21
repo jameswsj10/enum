@@ -39,7 +39,7 @@ def getWikipediaPage(keyword):
 #   Return the headers relevant to the keyword
 #   (ignore See Also and after)
 
-def findRelevantHeadings(keyword1, keyword2):
+def findRelevantHeadings(keyword1, keyword):
     """In one pass of the wikipedia page of the first keyword, return all headings and subheadings
     of the page with a match to the second keyword in the text
 
@@ -50,7 +50,7 @@ def findRelevantHeadings(keyword1, keyword2):
 
     ^ change output as needed (maybe a linked list)
     """
-    url = getWikipediaPage(keyword)
+    url = getWikipediaPage(keyword1)
     headings = []
     keyword_porter = porter.stem(keyword)       # two different ways of stemming and lemmatizing, we should search both
     keyword_lancaster = lancaster.stem(keyword)
