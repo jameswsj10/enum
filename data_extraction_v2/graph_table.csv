@@ -1,0 +1,26 @@
+,key1,key2,relationship
+0,inheritance,polymorph,Applications/Code reuse
+1,inheritance,polymorph,Inheritance vs subtyping/Design constraints
+2,inheritance,class,Types
+3,inheritance,class,Subclasses and superclasses
+4,inheritance,class,Visibility of inherited members
+5,inheritance,class,Applications
+6,inheritance,class,Inheritance vs subtyping
+7,inheritance,class,Issues and alternatives
+8,polymorph,inheritance,History
+9,polymorph,inheritance,Types/Subtyping
+10,polymorph,class,History
+11,polymorph,class,Types/Parametric polymorphism
+12,computers,science,Professions and organiz
+13,computers,class,
+14,computers,class,Ha/Arithmetic logic unit
+15,science,computers,History
+16,science,computers,Etymology
+17,science,computers,Fields
+18,science,class,Fields/Theoretical computer science
+19,science,class,Education
+20,class,inheritance,Design and implementation/The concept of class interface
+21,class,inheritance,Inter-class relationships/Hierarchical
+22,class,inheritance,Taxonomy of classes/Abstract and concrete
+23,class,inheritance,Benefits
+24,class,science,Inter-class relationships/Hierarchical

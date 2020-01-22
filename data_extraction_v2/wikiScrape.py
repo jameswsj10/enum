@@ -10,6 +10,7 @@ from nltk.stem import PorterStemmer
 from nltk.stem import LancasterStemmer
 porter = PorterStemmer()
 lancaster = LancasterStemmer()
+import pandas as pd
 
 # function seems to be giving back inconsistent results for some keywords like 'Particles Chemistry' (2 diff results)
 def getWikipediaPage(keyword):
@@ -26,7 +27,7 @@ def getWikipediaPage(keyword):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
     links = soup.html.body.find_all('a', attrs={'href': re.compile("^/wiki/")})
-    return 'en.wikipedia.org{}'.format(links[2].get('href'))    #.format is the faster than adding strings
+    return 'http://en.wikipedia.org{}'.format(links[2].get('href'))    #.format is the faster than adding strings
 
 
 # def searchWikiPage(url, keyword):
@@ -81,7 +82,7 @@ def findRelevantHeadings(keyword1, keyword):
                     else:
                         headings.append(h2.text[:-6] + "/" + h3)
                     break
-    # print(headings)
+    #print(headings)
     return headings
 
 # We probably don't need this
@@ -94,5 +95,21 @@ def findRelevantHeadings(keyword1, keyword):
 
 if __name__ == '__main__':
     #getWikipediaPage('Particles Chemistry')
-    findRelevantHeadings("http://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)", "polymorph")
+    keywords = ["inheritance", "polymorph", "computers", "science", "class"]
+    labels = {'key1':[], 'key2':[], 'relationship':[]}
+    frame = pd.DataFrame(labels)
+    count = 0
+    for word in keywords:
+        for word1 in keywords:
+            if (word != word1):
+                rel = findRelevantHeadings(word + " computer science", word1)
+                for item in rel:
+                    print(item)
+                    frame = frame.append({'key1':word, 'key2':word1, 'relationship':item}, ignore_index=True)
+    print(frame)
+    frame.to_csv('graph_table.csv')
+                
+
+
+    # findRelevantHeadings("Inheritance Computer Science", "polymorph")
     # getTableofContentsTags('https://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)')
