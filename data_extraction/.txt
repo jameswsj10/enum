@@ -1,0 +1,518 @@
+CS 70
+Fall 2019
+
+Discrete Mathematics and Probability Theory
+Alistair Sinclair and Yun Song
+
+Note 12
+
+Introduction to Discrete Probability
+
+Probability theory has its origins in gambling — analyzing card games, dice, roulette wheels. Today it is an
+essential tool in engineering and the sciences. No less so in computer science, where its use is widespread
+in algorithms, systems, learning theory and artiﬁcial intelligence.
+Here are some typical statements that you might see concerning probability:
+
+1. The chance of getting a ﬂush in a 5-card poker hand is about 2 in 1000.
+
+2. The chance that this randomized primality testing algorithm outputs “prime” when the input is not
+
+prime is at most one in a trillion.
+
+3. In this load-balancing scheme, the probability that any processor has to deal with more than 12 re-
+
+quests is negligible.
+
+4. The average time between system failures is about 3 days.
+
+5. There is a 30% chance of a magnitude 8.0 earthquake in Northern California before 2030.
+
+Implicit in all such statements is the notion of an underlying probability space. This may be the result of a
+random experiment that we have ourselves constructed (as in 1, 2 and 3 above), or some model we build of
+the real world (as in 4 and 5 above). None of these statements makes sense unless we specify the probability
+space we are talking about: for this reason, statements like 5 (which are typically made without this context)
+are almost content-free.
+In this note, we will try to understand all this more clearly. The ﬁrst important notion here is that of a
+random experiment. We will start by introducing the space of all possible outcomes of the experiment,
+called a sample space. Each element of the sample space is assigned a probability which tells us how likely
+the outcome is to occur when we actually perform the experiment.
+
+1 Random Experiments
+
+In general, a random experiment consists of drawing a sample of k elements from a set S of cardinality
+n. The possible outcomes of such an experiment are exactly the objects that we counted in the last note.
+Recall from the last note that we considered four possible scenarios for counting, depending upon whether
+we sampled with or without replacement, and whether the order in which the k elements are chosen does
+or does not matter. The same will be the case for our random experiments. The outcome of a random
+experiment is called a sample point, and the sample space (often denoted by Ω) is the set of all possible
+outcomes of the experiment.
+An example of such an experiment is tossing a coin 4 times. In this case, S = {H,T} and we are drawing
+4 elements with replacement. HT HT is an example of a sample point and the sample space Ω has 16
+elements, as illustrated in the following picture:
+
+CS 70, Fall 2019, Note 12
+
+1
+
+How do we determine the chance of each particular outcome, such as HHT H, of our experiment? In order
+to do this, we need to deﬁne the probability for each sample point, as described below.
+
+2 Probability Spaces
+A probability space is a sample space Ω, together with a probability P[ω] (often also denoted as Pr[ω]) for
+each sample point ω, such that
+
+• (Non-negativity): 0 ≤ P[ω] ≤ 1 for all ω ∈ Ω.
+• (Total one): ∑
+ω∈Ω
+
+P[ω] = 1, i.e., the sum of the probabilities over all outcomes is 1.
+
+16. We will see examples of non-uniform probability distributions soon.
+
+The easiest way to assign probabilities to sample points is to do it uniformly: if |Ω| = N, then P[ω] = 1
+N ,
+∀ω ∈ Ω. For example, if we toss a fair coin 4 times, each of the 16 sample points (as pictured above) is
+assigned probability 1
+After performing an experiment, we are often interested in knowing whether a certain event occurred. For
+example, we might be interested in the event that there were “exactly 2 H’s in four tosses of the coin”. How
+do we formally deﬁne the concept of an event in terms of the sample space Ω? The answer is to identify
+the event “exactly 2 H’s in four tosses of the coin” with the set of all those outcomes in which there are
+exactly two H’s: {HHT T,HT HT,HT T H,T HHT,T HT H,T T HH} ⊂ Ω. Hence, formally an event A is
+just a subset of the sample space Ω, i.e., A ⊆ Ω.
+How should we deﬁne the probability of an event A? Naturally, we should just add up the probabilities of
+the sample points in A. For any event A ⊆ Ω, we deﬁne the probability of A to be
+
+P[A] = ∑
+ω∈A
+
+P[ω].
+
+two H’s, and so |A| =(cid:0)4
+
+Note that 0 ≤ P[A] ≤ 1 for all A ⊆ Ω, and P[Ω] = 1. The probability of getting exactly two H’s in four coin
+tosses can be calculated using this deﬁnition as follows. Event A consists of all sequences that have exactly
+Thus, each sample point ω ∈ A has probability 1
+P[A] = 6· 1
+
+(cid:1) = 6. For this example, there are 24 = 16 possible outcomes for ﬂipping four coins.
+
+16; and since there are six sample points in A, we obtain
+
+2
+
+16 = 3
+8.
+
+3 Examples
+
+We will now look at examples of random experiments and their corresponding sample spaces, along with
+possible probability spaces and events.
+
+CS 70, Fall 2019, Note 12
+
+2
+
+3 × 2
+
+3 × 2
+
+3 = 16
+
+16. What if p = 2
+81, while P[T T HH] = 1
+
+3.1 Coin Tosses
+Suppose we have a coin with P(H) = p and P(T ) = 1− p, and our experiment consists of ﬂipping the coin
+4 times. The sample space Ω consists of the sixteen possible sequences of H’s and T ’s shown in the ﬁgure
+on the previous page.
+The probability space depends on p. If p = 1
+2 the probabilities are assigned uniformly; the probability of
+3? Then the probabilities are different. For example, P[HHHH] =
+each sample point is 1
+3 × 2
+3 × 2
+3 × 1
+3 × 2
+2
+81. (Note: We have simply multiplied probabilities
+here; we will explain later why this is the correct thing to do for this example. It is NOT always OK to
+multiply probabilities like this.)
+What type of events can we consider in this setting? Let A be the event that all four coin tosses are the
+
+same. Then A = {HHHH,T T T T}. HHHH has probability(cid:0) 2
+(cid:1)4 and T T T T has probability(cid:0) 1
++(cid:0) 1
+P[A] = P[HHHH] + P[T T T T ] =(cid:0) 2
+(cid:1)4
+(cid:1)4
+two heads (such as HT HT ) is(cid:0) 2
+(cid:1)2. How many such outcomes are there? There are(cid:0)4
+(cid:1)2(cid:0) 1
+(cid:1)2(cid:0) 1
+6(cid:0) 2
+
+of choosing the positions of the heads, and these choices completely specify the sequence. So, P[B] =
+
+Next, consider the event B that there are exactly two heads. The probability of any particular outcome with
+
+(cid:1)4. Thus,
+(cid:1) = 6 ways
+
+3 = 4
+
+= 17
+81.
+
+(cid:1)2
+
+= 24
+
+3
+
+3
+
+3
+
+2
+
+3
+
+3
+
+3
+
+3
+
+3
+
+81 = 8
+27.
+
+More generally, if we ﬂip the coin n times, we get a sample space Ω of cardinality 2n. The sample points are
+all possible length-n sequences of H’s and T ’s. If the coin has P(H) = p, and if we consider any sequence
+of n coin ﬂips with exactly r H’s, then the probability of this sequence is pr(1− p)n−r.
+Now consider the event C that we get exactly r H’s when we ﬂip the coin n times. This event consists of
+
+(cid:1) sample points and each has probability pr(1− p)n−r. So, P[C] =(cid:0)n
+
+(cid:1)pr(1− p)n−r.
+
+exactly(cid:0)n
+
+r
+
+r
+
+Biased coin tossing sequences show up in many contexts: for example, they might model the behavior of n
+trials of a faulty system, which fails each time with probability p.
+3.2 Rolling Dice
+Consider rolling two fair dice. In this experiment, Ω = {(i, j) : 1 ≤ i, j ≤ 6}. The probability space is
+uniform, i.e., all sample points have the same probability 1|Ω| = 1
+36. Hence, the probability of any event A is
+
+P[A] =
+
+# of sample points in A
+# of sample points in Ω =
+
+|A|
+|Ω| .
+
+So, for uniform spaces, computing probabilities reduces to counting sample points!
+Now consider two events: the event A that the sum of the dice is at least 10 and the event B that there is at
+least one 6. By enumerating the sample points contained in each event, it can be easily shown that |A| = 6
+and |B| = 11. Then, by the observation above, it follows that P[A] = 6
+3.3 Card Shuﬄing
+Consider a random experiment of shufﬂing a deck of standard playing cards. Here, Ω is equal to the set of
+the 52! permutations of the deck. We assume that the probability space is uniform. (Note that we are really
+talking about an idealized mathematical model of shufﬂing here; in real life, there will always be a bit of
+bias in our shufﬂing. However, the mathematical model is close enough to be useful.)
+
+6 and P[B] = 11
+36.
+
+36 = 1
+
+CS 70, Fall 2019, Note 12
+
+3
+
+5
+
+3.4 Poker Hands
+Here’s another experiment: shufﬂing a deck of cards and dealing a poker hand. In this case, S is the set of 52
+cards and our sample space Ω = {all possible poker hands}, which corresponds to choosing k = 5 objects
+without replacement from a set of size n = 52 where order does not matter. Hence, as we saw in Note 11,
+5×4×3×2×1 = 2,598,960. Assuming that the deck is well shufﬂed, the probability of each
+
+(cid:1) = 52×51×50×49×48
+
+|Ω| =(cid:0)52
+
+outcome is equally likely and we are therefore dealing with a uniform probability space.
+Let A be the event that the poker hand is a ﬂush. (For those who are not familiar with poker, a ﬂush is a hand
+in which all cards have the same suit, say Hearts.) Since the probability space is uniform, computing P[A]
+reduces to simply computing |A|, the number of poker hands that are ﬂushes. There are 13 cards in each
+
+(cid:1). The total number of ﬂushes is therefore 4×(cid:0)13
+
+(cid:1). Then we
+
+suit, so the number of ﬂushes in each suit is(cid:0)13
+4×(cid:0)13
+(cid:1)
+(cid:0)52
+(cid:1) = 4× 13!
+
+P[hand is a ﬂush] =
+
+× 5!47!
+52!
+
+= 4× 13· 12· 11· 10· 9
+52· 51· 50· 49· 48
+
+≈ 0.002.
+
+have
+
+5!8!
+
+5
+
+5
+
+5
+
+5
+
+3.5 Balls and Bins
+In this experiment, we will throw 20 (labeled) balls into 10 (labeled) bins. Assume that each ball is equally
+likely to land in any bin, regardless of what happens to the other balls.
+If you wish to understand this situation in terms of sampling a sequence of k elements from a set S of
+cardinality n: the set S consists of the 10 bins, and we are sampling with replacement k = 20 times. The
+order of sampling matters, since the balls are labeled.
+The sample space Ω is equal to {(b1,b2, . . . ,b20) : 1 ≤ bi ≤ 10 for each i = 1, . . . ,20}, where the compo-
+nent bi denotes the bin in which ball i lands. The cardinality |Ω| of the sample space is equal to 1020, since
+each element bi in the sequence has 10 possible choices and there are 20 elements in the sequence. More
+generally, if we throw m balls into n bins, we have a sample space of size nm. The probability space is
+uniform; as we said earlier, each ball is equally likely to land in any bin.
+Let A be the event that bin 1 is empty. Since the probability space is uniform, we simply need to count
+how many outcomes have this property. This is exactly the number of ways all 20 balls can fall into the
+remaining nine bins, which is 920. Hence, P[A] = 920
+Let B be the event that bin 1 contains at least one ball. This event is the complement A of A, i.e., it consists
+of precisely those sample points which are not in A. So P[B] = 1−P[A] ≈ 0.88. More generally, if we throw
+m balls into n bins, we have:
+
+(cid:1)20 ≈ 0.12.
+
+10
+
+1020 =(cid:0) 9
+(cid:18)n− 1
+(cid:19)m
+
+n
+
+(cid:19)m
+
+(cid:18)
+1− 1
+n
+
+.
+
+=
+
+P[bin 1 is empty] =
+
+As we shall see, balls and bins is another probability space that shows up very often in Computer Science:
+for example, we can think of it as modeling a load balancing scheme, in which each job is sent to a random
+processor.
+It is also a more general model for problems we have previously considered. For example, ﬂipping a fair
+coin 3 times is a special case in which the number of balls (m) is 3 and the number of bins (n) is 2. Rolling
+two dice is a special case in which m = 2 and n = 6.
+
+CS 70, Fall 2019, Note 12
+
+4
+
+,
+
+365n
+
+365n
+
+P[A] =
+
+365× 364×···× (365− n + 1)
+
+3.6 Birthday Paradox
+The “birthday paradox” is a remarkable phenomenon that examines the chances that two people in a group
+have the same birthday. It is a “paradox” not because of a logical contradiction, but because it goes against
+intuition. For ease of calculation, we take the number of days in a year to be 365. Then S = {1, . . . ,365},
+and the random experiment consists of drawing a sample of n elements from S, where the elements are the
+birth dates of n people in a group. Then |Ω| = 365n. This is because each sample point is a sequence of
+possible birthdays for n people; so there are n points in the sequence and each point has 365 possible values.
+Let A be the event that at least a pair of people have the same birthday. If we want to determine P[A], it
+might be simpler to instead compute the probability of the complement of A; i.e., P[A], where A is the event
+that no two people have the same birthday. Since P[A] = 1− P[A], we can then easily compute P[A].
+We are again working in a uniform probability space, so we just need to determine |A|. Equivalently, we are
+computing the number of ways for no two people to have the same birthday. There are 365 choices for the
+ﬁrst person, 364 for the second, . . . , 365− n + 1 choices for the n-th person, for a total of 365× 364×···×
+(365− n + 1). This is simply an application of the First Rule of Counting from Note 11; we are sampling
+without replacement and the order matters.
+In summary, we have
+
+|A|
+|Ω| =
+so P[A] = 1−P[A] = 1− 365×364×···×(365−n+1)
+. This allows us to compute P[A] as a function of the number n
+of people. Of course, as n increases P[A] increases. In fact, with n = 23 people, you should be willing to bet
+that at least a pair of people have the same birthday, since then P[A] is larger than 50%. For n = 60 people,
+P[A] is over 99%.
+3.7 The Monty Hall Problem
+In an (in)famous 1970s game show hosted by Monty Hall, a contestant was shown three doors; behind one
+of the doors was a valuable prize (a car), and behind the other two were goats. The contestant picks a door
+(but does not open it). Then Hall’s assistant (Carol), opens one of the other two doors, revealing a goat
+(since Carol knows where the prize is, she can always do this). The contestant is then given the option of
+sticking with his/her current door, or switching to the other unopened one. The contestant wins the prize if
+and only if their chosen door is the correct one. The question is: Does the contestant have a better chance of
+winning if he/she switches doors?
+Intuitively, it seems obvious that since there are only two remaining doors after the host opens one, they
+must have equal probability. So you may be tempted to jump to the conclusion that it should not matter
+whether or not the contestant stays or switches. We will see that actually, the contestant has a better chance
+of picking the car if he or she uses the switching strategy. We will ﬁrst give an intuitive pictorial argument,
+and then take a more rigorous probability approach to the problem.
+Initially when the
+To see why it is in the contestant’s best interests to switch, consider the following.
+contestant chooses the door, he or she has a 1
+3 chance of picking the car. This must mean that the other
+doors combined have a 2
+3 chance of winning. But after Carol opens a door with a goat behind it, how do
+the probabilities change? Well, the door the contestant originally chose still has a 1
+3 chance of winning, and
+the door that Carol opened has no chance of winning. What about the last door? It must have a 2
+3 chance of
+containing the car, and so the contestant has a higher chance of winning if he or she switches doors. This
+argument can be summed up nicely in the following picture:
+
+CS 70, Fall 2019, Note 12
+
+5
+
+What is the sample space here? Well, we can describe the outcome of the game (up to the point where the
+contestant makes his/her ﬁnal decision) using a triple of the form (i, j,k), where i, j,k ∈ {1,2,3}. The values
+i, j,k respectively specify the location of the prize, the initial door chosen by the contestant, and the door
+opened by Carol. Note that some triples are not possible: e.g., (1,2,1) is not, because Carol never opens the
+prize door. Thinking of the sample space as a tree structure, in which ﬁrst i is chosen, then j, and ﬁnally k
+(depending on i and j), we see that there are exactly 12 sample points.
+Assigning probabilities to the sample points here requires pinning down some assumptions:
+
+• The prize is equally likely to be behind any of the three doors.
+
+• Initially, the contestant is equally likely to pick any of the three doors.
+
+• If the contestant happens to pick the prize door (so there are two possible doors for Carol to open),
+Carol is equally likely to pick either one. (Actually our calculation will have the same result no matter
+how Carol picks the door.)
+
+From this, we can assign a probability to every sample point. For example, the point (2,1,3) corresponds to
+the prize being placed behind door 2 (with probability 1
+3), the contestant picking door 1 (with probability 1
+3),
+and Carol opening door 3 (with probability 1, because she has no choice). So
+
+P[(2,1,3)] =
+
+1
+3
+
+× 1
+3
+
+× 1 =
+
+1
+9
+
+.
+
+[Note: Again we are multiplying probabilities here, without proper justiﬁcation!] Note that there are six
+outcomes of this type, characterized by having i (cid:54)= j (and hence k must be different from both). On the other
+hand, we have
+
+P[(1,1,2)] =
+
+1
+3
+
+× 1
+3
+
+× 1
+2
+
+=
+
+1
+18
+
+.
+
+18 ) = 1.
+
+9 ) + (6× 1
+
+And there are six outcomes of this type, having i = j. These are the only possible outcomes, so we have com-
+pletely deﬁned our probability space. Just to check our arithmetic, we note that the sum of the probabilities
+of all outcomes is (6× 1
+Let’s return to the Monty Hall problem. Recall that we want to investigate the relative merits of the “sticking”
+strategy and the “switching” strategy. Let’s suppose the contestant decides to switch doors. The event W
+we are interested in is the event that the contestant wins. Which sample points (i, j,k) are in W ? Well, since
+the contestant is switching doors, their initial choice j cannot be equal to the prize door, which is i. And all
+outcomes of this type correspond to a win for the contestant, because Carol must open the second non-prize
+door, leaving the contestant to switch to the prize door. So W consists of all outcomes of the ﬁrst type in
+our earlier analysis; recall that there are six of these, each with probability 1
+3. That is,
+
+9. So P[W ] = 6
+
+9 = 2
+
+CS 70, Fall 2019, Note 12
+
+6
+
+using the switching strategy, the contestant wins with probability 2
+3. It should be intuitively clear (and easy
+to check formally — try it!) that under the sticking strategy their probability of winning is 1
+3. (In this case,
+the contestant is really just picking a single random door.) So by switching, the contestant actually improves
+their odds by a huge amount!
+
+4 Summary
+
+The Monty Hall example well illustrates the importance of doing probability calculations systematically,
+rather than “intuitively.” Recall the key steps in all our calculations:
+
+• What is the sample space (i.e., the experiment and its set of possible outcomes)?
+
+• What is the probability of each outcome (sample point)?
+
+• What is the event we are interested in (i.e., which subset of the sample space)?
+
+• Finally, compute the probability of the event by adding up the probabilities of the sample points
+
+contained in it.
+
+Whenever you meet a probability problem, you should always go back to these basics to avoid potential
+pitfalls. Even experienced researchers make mistakes when they forget to do this — witness many erroneous
+“proofs”, submitted by mathematicians to newspapers at the time, of the claim that the switching strategy in
+the Monty Hall problem does not improve the odds.
+
+CS 70, Fall 2019, Note 12
+
+7
+
+
