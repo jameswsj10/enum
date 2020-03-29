@@ -99,7 +99,7 @@ class TextRank4Keyword():
         """Print top number keywords"""
         node_weight = OrderedDict(sorted(self.node_weight.items(), key=lambda t: t[1], reverse=True))
         for i, (key, value) in enumerate(node_weight.items()):
-            print(key + ' - ' + str(value))
+            print(str(i) + ". " + key + ' - ' + str(value))
             if i > number:
                 break
 
@@ -144,7 +144,8 @@ class TextRank4Keyword():
         # Get weight for each node
         node_weight = dict()
         for word, index in vocab.items():
-            node_weight[word] = pr[index]
+            if len(word) > 2:
+                node_weight[word] = pr[index]
 
         self.node_weight = node_weight
 # text = """
